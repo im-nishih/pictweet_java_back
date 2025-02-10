@@ -24,6 +24,9 @@ public interface UserRepository {
   @Select("SELECT * FROM users WHERE email = #{email}")
   UserEntity findByEmail(String email);
 
+  @Select("SELECT id, nickname FROM users WHERE id = #{id}")
+  UserEntity findUserById(Integer id);
+  
   @Select("SELECT * FROM users WHERE id = #{id}")
   @Results(value = {
     @Result(property = "id", column = "id"),
@@ -31,6 +34,7 @@ public interface UserRepository {
             many = @Many(select = "in.tech_camp.pictweet.repository.TweetRepository.findByUserId"))
   })
   UserEntity findById(Integer id);
+
 
   @Select("SELECT * FROM users")
   List<UserEntity> findAll();
